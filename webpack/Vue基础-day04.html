@@ -1,0 +1,466 @@
+<html>
+  <head>
+	  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>i5ting_ztree_toc:Vue基础-day04</title>
+		<link href="toc/style/github-bf51422f4bb36427d391e4b75a1daa083c2d840e.css" media="all" rel="stylesheet" type="text/css"/>
+		<link href="toc/style/github2-d731afd4f624c99a4b19ad69f3083cd6d02b81d5.css" media="all" rel="stylesheet" type="text/css"/>
+		<link href="toc/css/zTreeStyle/zTreeStyle.css" media="all" rel="stylesheet" type="text/css"/>
+	  <style>
+		pre {
+		    counter-reset: line-numbering;
+		    border: solid 1px #d9d9d9;
+		    border-radius: 0;
+		    background: #fff;
+		    padding: 0;
+		    line-height: 23px;
+		    margin-bottom: 30px;
+		    white-space: pre;
+		    overflow-x: auto;
+		    word-break: inherit;
+		    word-wrap: inherit;
+		}
+
+		pre a::before {
+		  content: counter(line-numbering);
+		  counter-increment: line-numbering;
+		  padding-right: 1em; /* space after numbers */
+		  width: 25px;
+		  text-align: right;
+		  opacity: 0.7;
+		  display: inline-block;
+		  color: #aaa;
+		  background: #eee;
+		  margin-right: 16px;
+		  padding: 2px 10px;
+		  font-size: 13px;
+		  -webkit-touch-callout: none;
+		  -webkit-user-select: none;
+		  -khtml-user-select: none;
+		  -moz-user-select: none;
+		  -ms-user-select: none;
+		  user-select: none;
+		}
+
+		pre a:first-of-type::before {
+		  padding-top: 10px;
+		}
+
+		pre a:last-of-type::before {
+		  padding-bottom: 10px;
+		}
+
+		pre a:only-of-type::before {
+		  padding: 10px;
+		}
+
+		.highlight { background-color: #ffffcc } /* RIGHT */
+		</style>
+  </head>
+  <body>
+	  <div>
+				<div style='width:25%;'>
+						<ul id="tree" class="ztree" style='width:100%'>
+
+						</ul>
+				</div>
+        <div id='readme' style='width:70%;margin-left:20%;'>
+          	<article class='markdown-body'>
+            	<h1 id="vue-day03">Vue基础-day03</h1>
+<!-- TOC -->
+<ul>
+<li><a href="#webpack">webpack</a><ul>
+<li><a href="#什么是webpack">什么是webpack</a></li>
+<li><a href="#为什么需要webpack">为什么需要webpack</a></li>
+<li><a href="#webpack安装">webpack安装</a></li>
+</ul>
+</li>
+</ul>
+<!-- /TOC -->
+<h2 id="webpack">webpack</h2>
+<h3 id="-webpack">什么是webpack</h3>
+<p>  webpack 是一个现代 JavaScript 应用程序的模块打包器(module bundler)，分析你的项目结构，找到JavaScript模块以及其它的一些浏览器不能直接运行的拓展语言（Sass，TypeScript等），并将其转换和打包为合适的格式供浏览器使用。</p>
+<p>  <img src="./img/day03/webpack是什么.png" alt="webpack是什么"></p>
+<h3 id="-webpack">为什么需要webpack</h3>
+<p>现在的前端，越来越复杂，特别是SPA（single page web application）流行之后，一个应用程序往往会依赖很多其他的模块，或者编译scss、less、stylus等，如果仅仅是靠人来管理是不可能的，这个时候我们必须依赖于webpack来解决。</p>
+<p>现在最流行的三个SPA的框架，都于webpack紧密相连。</p>
+<ul>
+<li>React.js + webpack</li>
+<li>Vue.js + webpack</li>
+<li>Angular.js + webpack</li>
+</ul>
+<p>学习webpack有4个重点内容：</p>
+<ul>
+<li>入口(entry)</li>
+<li>输出(output)</li>
+<li>加载器(loader)</li>
+<li>插件(plugins)</li>
+</ul>
+<h3 id="webpack-">webpack安装</h3>
+<p>注意：请先安装node环境</p>
+<p><code>npm install webpack -g</code></p>
+<p>建议大家这样操作(随时切换镜像源)：</p>
+<ol>
+<li>npm install nrm -g // 安装nrm</li>
+<li>nrm ls // 查看镜像源</li>
+<li>nrm use taobao // 选择淘宝镜像，也可以选择cnpm</li>
+</ol>
+<h3 id="-webpack">使用webpack</h3>
+<h4 id="01-webpack-cli">01-webpack-cli</h4>
+<p>使用命令：<code>webpack 输入文件路径 打包后文件路径</code>将一个文件打包成另外一个文件</p>
+<h4 id="02-webpack-config">02-webpack-config</h4>
+<ol>
+<li>配置webpack.config.js</li>
+<li><p>运行<code>webpack</code></p>
+<pre><code class="lang-js">var path = require(&#39;path&#39;)
+
+module.exports = {
+ // 入口文件配置
+ entry: &quot;./src/app.js&quot;,
+
+ // 出口文件配置项
+ output: {
+   // 输出的路径，通常到绝对路径
+   path: path.join(__dirname, &#39;dist&#39;),
+   // 输出文件名字
+   filename: &quot;bundle.js&quot;
+ }
+}
+</code></pre>
+</li>
+</ol>
+<h4 id="03-webpack-dev-server">03-webpack-dev-server</h4>
+<ol>
+<li>安装：<code>npm install webpack-dev-server -g</code></li>
+<li>运行：<code>webpack-dev-server --inline</code></li>
+<li>运行：<code>npm init -y</code></li>
+<li>配置script：<code>&quot;dev&quot;: &quot;webpack-dev-server --inline --hot --open --port 8090&quot;</code></li>
+<li><code>npm i webpack-dev-server webpack -D</code></li>
+<li><code>npm run dev</code></li>
+</ol>
+<pre><code class="lang-js">  var path = require(&#39;path&#39;)
+
+  module.exports = {
+    // 入口文件配置
+    entry: &quot;./src/app.js&quot;,
+
+    // 输出配置
+    output: {
+      // 输出的路径
+      path: path.join(__dirname, &#39;dist&#39;),
+      // 静态资源在服务器上运行时的访问路径，可以直接http://localhost:8080/dist/bundle.js访问到服务器中的bundle.js文件
+      publicPath: &#39;/dist&#39;,
+      // 输出文件名字
+      filename: &quot;bundle.js&quot;
+    }
+  }
+</code></pre>
+<h4 id="04-webpack-css">04-webpack-css</h4>
+<ol>
+<li>安装<code>npm install css-loader style-loader --save-dev</code></li>
+</ol>
+<pre><code class="lang-js">  module: {
+    rules: [
+      // 配置的是用来解析.css文件的loader(style-loader和css-loader)
+      {
+        // 1.0 用正则匹配当前访问的文件的后缀名是  .css
+        test: /\.css$/,
+        use: [&#39;style-loader&#39;, &#39;css-loader&#39;] //webpack底层调用这些包的顺序是从右到左
+      }
+    ]
+  }
+</code></pre>
+<h4 id="05-webpack-less-webpack-sass">05-webpack-less&amp;webpack-sass</h4>
+<p><code>npm install less less-loader sass-loader node-sass --save-dev</code></p>
+<pre><code class="lang-js">{
+    test: /\.less$/,
+    use: [{
+        loader: &#39;style-loader&#39;
+    }, {
+        loader: &#39;css-loader&#39;
+    }, {
+        loader: &#39;less-loader&#39;
+    }]
+},
+</code></pre>
+<pre><code class="lang-js">{
+    test: /\.scss$/,
+    use: [{
+        loader: &#39;style-loader&#39;
+    }, {
+        loader: &#39;css-loader&#39;
+    }, {
+        loader: &#39;sass-loader&#39;
+    }]
+}
+</code></pre>
+<h4 id="06-webpack-">06-webpack-图片&amp;字体</h4>
+<ol>
+<li><code>npm install file-loader url-loader --save-dev</code></li>
+</ol>
+<pre><code class="lang-js">{
+    test: /\.(png|jpg|gif)/,
+    use: [{
+        loader: &#39;url-loader&#39;,
+        options: {
+            limit: 50000
+        }
+    }]
+}
+</code></pre>
+<h4 id="07-webpack-html">07-webpack-html</h4>
+<ol>
+<li><p><code>npm install html-webpack-plugin --save-dev</code></p>
+</li>
+<li><p>如果添加了title，需要在模板中添加<code>&lt;%= htmlWebpackPlugin.options.title %&gt;</code></p>
+</li>
+</ol>
+<pre><code class="lang-js">// 注意需要注释掉publicPath，不然会冲突
+
+var HtmlWebpackPlugin = require(&#39;html-webpack-plugin&#39;)
+
+plugins: [
+    new HtmlWebpackPlugin({
+        filename: &#39;index.html&#39;,
+        template: &#39;template.html&#39;
+    })
+]
+</code></pre>
+<h4 id="08-webpack-babel">08-webpack-babel</h4>
+<ol>
+<li><code>npm install babel-core  babel-loader babel-preset-env --save-dev</code></li>
+</ol>
+<p>注意：</p>
+<p>webpack 1.x | babel-loader &lt;= 6.x  </p>
+<p>webpack 2.x | babel-loader &gt;= 7.x (推荐) (^6.2.10 也能用, 但是会出现不推荐使用的警告)</p>
+<p>webpack 3.x | babel-loader &gt;= 7.1</p>
+<pre><code class="lang-js">    {
+      test: /\.js$/,
+      exclude: /(node_modules)/, // node_modules下面的.js文件会被排除
+      use: {
+        loader: &#39;babel-loader&#39;,
+        // options里面的东西可以放到.babelrc文件中去
+        options: {
+          presets: [&#39;env&#39;]
+        }
+      }
+    }
+
+// .babelrc文件内的配置
+{
+  &quot;presets&quot;:[&quot;env&quot;]
+}
+</code></pre>
+<h4 id="09-webpack-vue">09-webpack-vue</h4>
+<ol>
+<li><code>npm install vue-loader vue-template-compiler --save-dev</code></li>
+<li><code>npm install vue --save</code></li>
+</ol>
+<pre><code class="lang-js">{
+    test: /\.vue$/,
+    loader: &#39;vue-loader&#39;
+}
+
+// 如果使用的是webpack1.x，还需要安装 `babel-plugin-transform-runtime`,并添加一下配置；如果是webpack2.x以上请忽略一下配置
+{
+  test: /\.js$/,
+  exclude: /(node_modules)/, // node_modules下面的.js文件会被排除
+  use: {
+    loader: &#39;babel-loader&#39;,
+    // options里面的东西可以放到.babelrc文件中去
+    options: {
+      presets: [&#39;env&#39;],
+      plugins: [&#39;transform-runtime&#39;] 
+    }
+  }
+}
+</code></pre>
+<p>使用vue文件创建vue组件</p>
+<pre><code class="lang-html">
+&lt;!-- App.vue --&gt;
+&lt;template&gt;
+  &lt;div&gt;{{msg}}&lt;/div&gt;
+&lt;/template&gt;
+&lt;script&gt;
+export default {
+  data () {
+    return {
+      msg: &#39;hello world&#39;
+    }
+  }
+}
+&lt;/script&gt;
+&lt;style&gt;
+  div {
+    color: red;
+  }
+&lt;/style&gt;
+</code></pre>
+<pre><code class="lang-js">// app.js
+import Vue from &#39;vue&#39;
+import App from &#39;./App.vue&#39;
+
+new Vue({
+    el: &#39;#app&#39;,
+    render: h=&gt; h(App)
+})
+</code></pre>
+<h3 id="vue-router">vue-router</h3>
+<pre><code class="lang-js">// app.js
+import Vue from &#39;vue&#39;
+import App from &#39;./App.vue&#39;
+
+import Login from &#39;./Login.vue&#39;
+
+// 1. 引入vue-router
+import VueRouter from &#39;vue-router&#39;
+
+// 2. 表示使用路由插件
+Vue.use(VueRouter)
+
+//3. 配置路由规则
+var router = new VueRouter({
+  routes: [
+    { name: &#39;login&#39;, path: &#39;/login&#39;, component: Login }
+  ]
+})
+
+new Vue({
+  el: &#39;#app&#39;,
+  // 挂载路由
+  router,
+  // 这是个渲染函数，指定渲染组件
+  render: h =&gt; h(App)
+})
+</code></pre>
+<h3 id="vue-cli">vue-cli</h3>
+<p>vue-cli是官方的一个脚手架工具，所谓脚手架呢就是一个架子，什么架子呢？项目结构的架子，里面有一些最基本的结构配置。利用vue-cli呢，我们可以生成这样的一个脚手架，所以呢它就被称为vue脚手架工具。</p>
+<p><code>npm install vue-cli -g</code></p>
+<p><code>vue init webpack admin</code></p>
+<h3 id="element-ui-">element-ui使用简介</h3>
+<p>安装：<code>npm i element-ui -S</code>
+<a href="http://element-cn.eleme.io/2.0/#/zh-CN/component/quickstart">element-ui使用</a></p>
+<h3 id="-">项目准备</h3>
+<ol>
+<li>码云上创建一个空的项目（不能选readme文件选项）</li>
+<li>创建本地的git仓库<code>git init</code></li>
+<li>将本地仓库关联到远端</li>
+<li><code>git add .</code></li>
+<li><code>git commit -m &#39;init project&#39;</code></li>
+<li><p><code>git push</code> (这里有可能报错，按提示 git push --set-upstream origin master)(会提示输入码云的账户密码  )</p>
+</li>
+<li><p>创建并切换到新分支<code>git checkout -b xx分支</code></p>
+</li>
+<li><code>git add .</code></li>
+<li><code>git commit -m &quot;xxxx&quot;</code></li>
+<li><code>git push</code> （可能会报错，按照提示push）</li>
+<li><code>git checkout master</code></li>
+<li><code>git merge xx分支</code></li>
+<li><code>git branch -d xx分支</code></li>
+<li><code>git add .</code></li>
+<li><code>git commit -m &quot;xxx&quot;</code></li>
+<li><code>git push</code></li>
+</ol>
+<h3 id="-">组件生命周期</h3>
+<pre><code class="lang-js">&lt;body&gt;
+  &lt;div id=&quot;app&quot;&gt;
+    {{data}}
+    {{info}}
+    {{test()}}
+    &lt;button @click=&quot;data=&#39;hello1&#39;&quot;&gt;更新data&lt;/button&gt;
+    &lt;button @click=&quot;info=&#39;world2&#39;&quot;&gt;更新info&lt;/button&gt;
+    &lt;button @click=&quot;destroy&quot;&gt;销毁组件&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;script&gt;
+    var myVm=new Vue({
+      el:&quot;#app&quot;,
+      data:{
+          data:&quot;hello&quot;,
+          info:&quot;world!&quot;
+      },
+      // 在实例初始化之后，数据观测 (data observer) 和 event/watcher 事件配置之前被调用
+      beforeCreate:function(){
+          console.log(&quot;beforeCreate========&quot;)
+          console.log(&quot;data:&quot;, this.data)
+          console.log(this.$el)
+      },
+      // 在实例创建完成后被立即调用。在这一步，实例已完成以下的配置：数据观测 (data observer)，属性和方法的运算，watch/event 事件回调。然而，挂载阶段还没开始，$el 属性目前不可见。
+      created:function(){
+          console.log(&quot;created========&quot;)
+          console.log(&quot;info:&quot;, this.info)
+          console.log(this.$el)
+      },
+      // 在挂载开始之前被调用：相关的 render 函数首次被调用。
+      beforeMount:function(){
+          console.log(&quot;beforeMount========&quot;)
+          console.log(&quot;info:&quot;, this.info)
+          console.log(this.$el)
+      },
+      // 编译好的模板挂载到vue实例之后调用
+      mounted:function(){
+          console.log(&quot;mounted========&quot;)
+          console.log(&quot;info:&quot;, this.info)
+          console.log(this.$el)
+      },
+        // 实例销毁之前调用。在这一步，实例仍然完全可用。
+      beforeDestroy:function(){
+          console.log(&quot;beforeDestroy========&quot;)
+          console.log(&quot;info:&quot;, this.info)
+          console.log(this.$el)
+      },
+      // Vue 实例销毁后调用。调用后，Vue 实例指示的所有东西都会解绑定，所有的事件监听器会被移除，所有的子实例也会被销毁。
+      destroyed:function(){
+        console.log(&quot;destroyed========&quot;)
+        console.log(&quot;info:&quot;, this.info)
+        console.log(this.$el)
+      },
+      // 数据更新时调用，发生在虚拟 DOM 重新渲染和打补丁之前。
+      beforeUpdate:function(){
+          console.log(&quot;beforeUpdate========&quot;);
+
+      },
+      // 由于数据更改导致的虚拟 DOM 重新渲染和打补丁，在数据更改之后会调用该钩子。
+      updated:function(){
+          console.log(&quot;updated========&quot;);
+      },
+      methods: {
+        test() {
+          console.log(&#39;事件可用&#39;)
+        },
+        destroy() {
+          this.$destroy()
+        },
+        udpateData() {
+          this.test()
+          this.data = &#39;hello2&#39;
+        },
+        updateInfo () {
+          this.test()
+          this.info = &#39;world2&#39;
+        }
+      }
+  })
+  &lt;/script&gt;
+&lt;/body&gt;
+</code></pre>
+
+          	</article>
+        </div>
+		</div>
+  </body>
+</html>
+<script type="text/javascript" src="toc/js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="toc/js/jquery.ztree.all-3.5.min.js"></script>
+<script type="text/javascript" src="toc/js/ztree_toc.js"></script>
+<script type="text/javascript" src="toc_conf.js"></script>
+
+<SCRIPT type="text/javascript" >
+<!--
+$(document).ready(function(){
+    var css_conf = eval(markdown_panel_style);
+    $('#readme').css(css_conf)
+    
+    var conf = eval(jquery_ztree_toc_opts);
+		$('#tree').ztree_toc(conf);
+});
+//-->
+</SCRIPT>
